@@ -71,7 +71,11 @@ public class MainConsole {
                 updateAvailableLocationsMenu();
             } else if (choice == 3) {
                 checkWeatherAtAvailableLocationMenu();
-            }
+            } else if (choice==4) {
+
+            } else System.out.println("Invalid option chosen");
+            //else throw new IllegalArgumentException("Invalid choice");
+
         }
     }
 

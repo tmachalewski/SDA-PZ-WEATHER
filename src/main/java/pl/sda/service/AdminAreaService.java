@@ -3,6 +3,7 @@ package pl.sda.service;
 import pl.sda.dao.AdminAreaDAO;
 import pl.sda.entity.AdminArea;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AdminAreaService {
@@ -20,7 +21,7 @@ public class AdminAreaService {
     }
 
     public void updateAvailableLocations() {
-        List<AdminArea> newAdminAreas = aws.getAvailableLocations();
+        List<AdminArea> newAdminAreas = new ArrayList<>();
         aad.saveNewAvailableLocations(newAdminAreas);
     }
 }

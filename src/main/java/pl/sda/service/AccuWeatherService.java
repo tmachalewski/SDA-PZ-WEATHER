@@ -15,7 +15,7 @@ import java.io.InvalidObjectException;
 import java.util.List;
 import java.util.Properties;
 
-public class AccuWeatherService {
+public class AccuWeatherService implements WeatherService {
 
     private String getApplicationKey(){
         Properties prop = System.getProperties();
@@ -24,29 +24,6 @@ public class AccuWeatherService {
             throw new RuntimeException("Key for accuWeather is not set: add -DaccuWeatherAppKey=value to VM options");
         }
         return key;
-    }
-
-    public List<AdminArea> getAvailableLocations() {
-        String key = getApplicationKey();
-
-        Request request = new Request.Builder()
-                .url("http://dataservice.accuweather.com/currentconditions/v1/274945?apikey=m5v2C5Tejc88GUriqavjJqofwnNEcqZu&language=en-us&details=false")
-                .build();
-
-        try (Response response = new OkHttpClient().newCall(request).execute()) {
-
-            if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
-
-            // Get response body
-            System.out.println(response.body().string());
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-        //String applicationKey = Properties.get
-        return null;
     }
 
     public Temperature getCurrentWeatherConditions(City city){
@@ -74,7 +51,7 @@ public class AccuWeatherService {
         }
 
         ObjectMapper objectMapper = new ObjectMapper();
-        AccuWeatherCurrentConditionsNoDetails[] currents = new AccuWeatherCurrentConditionsNoDetails[1];
+        AccuWeatherCurrentConditionsNoDetails[] currents = null;
         try {
             currents = objectMapper.readValue(responseString, AccuWeatherCurrentConditionsNoDetails[].class);
         } catch (JsonProcessingException e) {
